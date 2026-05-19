@@ -1,0 +1,37 @@
+import "hardhat";
+import type { HardhatRuntimeEnvironment } from "hardhat/types";
+
+declare var hre: HardhatRuntimeEnvironment;
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+
+async function main() {
+  if (!CONTRACT_ADDRESS) {
+    console.error("Set CONTRACT_ADDRESS env var to your deployed contract");
+    process.exit(1);
+  }
+
+  // Read greeting
+  const [greeting] = await hre.starknet.call(CONTRACT_ADDRESS, "get_greeting");
+  console.log(`👋 Greeting: ${greeting}`);
+
+  // Read balance
+  const [balance] = await hre.starknet.call(CONTRACT_ADDRESS, "get_balance");
+  console.log(`💰 Balance: ${balance}`);
+
+  // Set new greeting
+  const newGreeting = "0x48656c6c6f2048617264686174"; // "Hello Hardhat" as felt
+  const txHash = await hre.starknet.invoke(CONTRACT_ADDRESS, "set_greeting", [newGreeting]);
+  console.log(`⚡ set_greeting tx: ${txHash}`);
+
+  // Read updated greeting
+  const [updated] = await hre.starknet.call(CONTRACT_ADDRESS, "get_greeting");
+  console.log(`👋 Updated greeting: ${updated}`);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error("❌", e);
+    process.exit(1);
+  });

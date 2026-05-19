@@ -1,0 +1,16 @@
+{
+  "name": "hello_starknet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "scarb build",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "call": "hardhat run scripts/call.ts"
+  },
+  "devDependencies": {
+    "hardhat": "^2.22.0",
+    "hardhat-starknet": "file:../..",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}

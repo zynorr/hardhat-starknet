@@ -1,0 +1,24 @@
+import { extendConfig } from "hardhat/config";
+
+/**
+ * Registers the starknet network type in Hardhat's network configuration.
+ *
+ * This is intentionally minimal: the Starknet plugin manages its own
+ * network config (via `starknet.network` in hardhat.config.ts) rather
+ * than reusing Hardhat's built-in Ethereum network stack.
+ *
+ * If future Starknet devnets require custom Hardhat network presets
+ * (e.g., for running a devnet node alongside Hardhat's task runner),
+ * extend this hook with `hardhat-networks` or a custom network provider.
+ */
+export function registerNetworkExtension(): void {
+  // Currently a no-op — Starknet networks are configured through
+  // the `starknet.network` field rather than Hardhat's `networks` config.
+  //
+  // Example future use:
+  //   extendConfig((config, userConfig) => {
+  //     config.networks.starknet-devnet = {
+  //       url: userConfig.starknet?.network || "http://127.0.0.1:5050",
+  //     };
+  //   });
+}
