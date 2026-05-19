@@ -6,6 +6,8 @@
 
 # hardhat-starknet
 
+[![CI](https://github.com/zynorr/hardhat-starknet/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/zynorr/hardhat-starknet/actions/workflows/ci.yml)
+
 > A modern Hardhat plugin for Starknet that uses Scarb, supports local devnet, and gives clean deploy/call workflows.
 
 ```bash
