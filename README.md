@@ -1,8 +1,12 @@
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nomiclabs/hardhat-starknet/master/logo.svg">
+  <img alt="hardhat-starknet" src="https://raw.githubusercontent.com/nomiclabs/hardhat-starknet/master/logo.svg" width="340">
+</picture>
 
 # hardhat-starknet
 
->  Hardhat plugin for Starknet that uses Scarb, supports local devnet, and gives clean deploy/call workflows.
+> A modern Hardhat plugin for Starknet that uses Scarb, supports local devnet, and gives clean deploy/call workflows.
 
 ```bash
 npm install --save-dev hardhat-starknet

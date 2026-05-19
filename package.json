@@ -1,6 +1,6 @@
 {
   "name": "hardhat-starknet",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "description": "A modern Hardhat plugin for Starknet that uses Scarb, supports local devnet, and gives clean deploy/call workflows",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hardhat-starknet/plugin"
+    "url": "https://github.com/zynorr/hardhat-starknet"
   },
   "keywords": [
     "hardhat",
