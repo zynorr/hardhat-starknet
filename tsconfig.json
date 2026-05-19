@@ -13,6 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*", "tests/**/*", "examples/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "sample"]
 }
