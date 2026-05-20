@@ -2,7 +2,7 @@
 
 import { expect } from "chai";
 import { execSync } from "child_process";
-import { promises as fs } from "fs";
+import { existsSync, promises as fs } from "fs";
 import { join, resolve } from "path";
 
 const EXAMPLE_DIR = resolve(process.cwd(), "examples/basic");
@@ -46,7 +46,9 @@ describe("Integration: deploy-call (full path)", function () {
     }
 
     // Install example project dependencies (fresh clone needs this)
-    execSync("npm install", { cwd: EXAMPLE_DIR, stdio: "pipe" });
+    if (!existsSync(join(EXAMPLE_DIR, "node_modules/hardhat-starknet"))) {
+      execSync("npm install", { cwd: EXAMPLE_DIR, stdio: "pipe" });
+    }
 
     // Build plugin
     execSync("npm run build", { cwd: PLUGIN_DIR, stdio: "pipe" });
