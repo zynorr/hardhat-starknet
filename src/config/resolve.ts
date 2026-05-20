@@ -26,9 +26,7 @@ export const NETWORK_ALIASES: Record<string, string> = {
  * @param userConfig - Partial user config from hardhat.config.ts
  * @returns Fully resolved config with all fields set
  */
-export function resolveConfig(
-  userConfig?: Partial<StarknetConfig>,
-): ResolvedStarknetConfig {
+export function resolveConfig(userConfig?: Partial<StarknetConfig>): ResolvedStarknetConfig {
   return {
     network: userConfig?.network ?? DEFAULT_CONFIG.network,
     scarbPath: userConfig?.scarbPath ?? DEFAULT_CONFIG.scarbPath,
@@ -37,8 +35,7 @@ export function resolveConfig(
     artifactDir: userConfig?.artifactDir ?? DEFAULT_CONFIG.artifactDir,
     wallet:
       userConfig?.wallet &&
-      (userConfig.wallet.accountAddress !== undefined ||
-        userConfig.wallet.privateKey !== undefined)
+      (userConfig.wallet.accountAddress !== undefined || userConfig.wallet.privateKey !== undefined)
         ? userConfig.wallet
         : {
             accountAddress: process.env.STARKNET_ACCOUNT,

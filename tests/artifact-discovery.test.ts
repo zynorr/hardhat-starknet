@@ -28,7 +28,9 @@ describe("Artifact Discovery (unit)", function () {
       "sample_token_Token.compiled_contract_class.json",
     ];
     expect(findSierraMatch(files, "Token")).to.equal("sample_token_Token.contract_class.json");
-    expect(findCasmMatch(files, "Token")).to.equal("sample_token_Token.compiled_contract_class.json");
+    expect(findCasmMatch(files, "Token")).to.equal(
+      "sample_token_Token.compiled_contract_class.json",
+    );
   });
 
   it("should return undefined if no Sierra artifact found", function () {
@@ -48,11 +50,11 @@ describe("Artifact Discovery (unit)", function () {
   });
 
   it("should not confuse Sierra with CASM files", function () {
-    const files = [
-      "sample_token_Token.compiled_contract_class.json",
-    ];
+    const files = ["sample_token_Token.compiled_contract_class.json"];
     expect(findSierraMatch(files, "Token")).to.be.undefined;
-    expect(findCasmMatch(files, "Token")).to.equal("sample_token_Token.compiled_contract_class.json");
+    expect(findCasmMatch(files, "Token")).to.equal(
+      "sample_token_Token.compiled_contract_class.json",
+    );
   });
 
   it("should find artifacts with multi-word package names", function () {
@@ -60,8 +62,12 @@ describe("Artifact Discovery (unit)", function () {
       "my_package_MyContract.contract_class.json",
       "my_package_MyContract.compiled_contract_class.json",
     ];
-    expect(findSierraMatch(files, "MyContract")).to.equal("my_package_MyContract.contract_class.json");
-    expect(findCasmMatch(files, "MyContract")).to.equal("my_package_MyContract.compiled_contract_class.json");
+    expect(findSierraMatch(files, "MyContract")).to.equal(
+      "my_package_MyContract.contract_class.json",
+    );
+    expect(findCasmMatch(files, "MyContract")).to.equal(
+      "my_package_MyContract.compiled_contract_class.json",
+    );
   });
 
   it("should find artifacts when contract name contains underscores", function () {
@@ -70,7 +76,9 @@ describe("Artifact Discovery (unit)", function () {
       "pkg_my_contract.compiled_contract_class.json",
     ];
     expect(findSierraMatch(files, "my_contract")).to.equal("pkg_my_contract.contract_class.json");
-    expect(findCasmMatch(files, "my_contract")).to.equal("pkg_my_contract.compiled_contract_class.json");
+    expect(findCasmMatch(files, "my_contract")).to.equal(
+      "pkg_my_contract.compiled_contract_class.json",
+    );
   });
 
   it("should handle multiple contracts returning correct matches", function () {
@@ -87,10 +95,7 @@ describe("Artifact Discovery (unit)", function () {
   });
 
   it("should handle partial name match edge cases", function () {
-    const files = [
-      "pkg_Token.contract_class.json",
-      "pkg_TokenV2.contract_class.json",
-    ];
+    const files = ["pkg_Token.contract_class.json", "pkg_TokenV2.contract_class.json"];
     // "Token" should match only Token.contract_class.json due to regex anchor
     const match = findSierraMatch(files, "Token");
     expect(match).to.equal("pkg_Token.contract_class.json");

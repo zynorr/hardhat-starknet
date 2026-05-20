@@ -38,31 +38,19 @@ export async function findCompiledArtifact(
   try {
     const files = await fs.readdir(targetDir);
 
-    const escapedName = contractName.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&",
-    );
+    const escapedName = contractName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     let sierraPattern: RegExp;
     let casmPattern: RegExp;
 
     if (packageName) {
-      const escapedPkg = packageName.replace(
-        /[.*+?^${}()|[\]\\]/g,
-        "\\$&",
-      );
-      sierraPattern = new RegExp(
-        `(?:${escapedPkg}_)?${escapedName}\\.contract_class\\.json$`,
-      );
+      const escapedPkg = packageName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      sierraPattern = new RegExp(`(?:${escapedPkg}_)?${escapedName}\\.contract_class\\.json$`);
       casmPattern = new RegExp(
         `(?:${escapedPkg}_)?${escapedName}\\.compiled_contract_class\\.json$`,
       );
     } else {
-      sierraPattern = new RegExp(
-        `${escapedName}\\.contract_class\\.json$`,
-      );
-      casmPattern = new RegExp(
-        `${escapedName}\\.compiled_contract_class\\.json$`,
-      );
+      sierraPattern = new RegExp(`${escapedName}\\.contract_class\\.json$`);
+      casmPattern = new RegExp(`${escapedName}\\.compiled_contract_class\\.json$`);
     }
 
     const sierraMatch = files.find((f) => sierraPattern.test(f));

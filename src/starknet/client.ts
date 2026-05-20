@@ -1,23 +1,14 @@
-import {
-  Account,
-  RpcProvider,
-  CallData,
-  ec,
-  hash,
-  stark,
-} from "starknet";
+import { Account, RpcProvider, CallData, ec, hash, stark } from "starknet";
 import { promises as fs } from "fs";
 import { resolveNetworkUrl } from "./network";
 import { u256Split, formatEther } from "../utils/format";
 import type { ResolvedStarknetConfig } from "../config/schema";
 
 // OZ Account contract class hash (Cairo 1) — used by starknet-devnet
-const OZ_ACCOUNT_CLASS_HASH =
-  "0x5b4b537eaa2399e3aa99c4e2e0208ebd6c71bc1467938cd52c798c601e43564";
+const OZ_ACCOUNT_CLASS_HASH = "0x5b4b537eaa2399e3aa99c4e2e0208ebd6c71bc1467938cd52c798c601e43564";
 
 // Standard ERC20 ETH contract address on Starknet (mainnet, sepolia, devnet)
-const ETH_CONTRACT_ADDRESS =
-  "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+const ETH_CONTRACT_ADDRESS = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
 
 /**
  * StarknetClient wraps the RpcProvider and Account, providing all
@@ -74,10 +65,7 @@ export class StarknetClient {
   /**
    * Declare a compiled contract class on Starknet.
    */
-  async declare(
-    sierraArtifactPath: string,
-    casmArtifactPath: string,
-  ): Promise<string> {
+  async declare(sierraArtifactPath: string, casmArtifactPath: string): Promise<string> {
     if (!this.account) {
       throw new Error(
         "Account required to declare contracts. Set starknet.wallet.accountAddress and starknet.wallet.privateKey.",
@@ -101,10 +89,7 @@ export class StarknetClient {
   /**
    * Deploy a contract from a previously declared class hash.
    */
-  async deploy(
-    classHash: string,
-    constructorCalldata: string[] = [],
-  ): Promise<string> {
+  async deploy(classHash: string, constructorCalldata: string[] = []): Promise<string> {
     if (!this.account) {
       throw new Error(
         "Account required to deploy contracts. Set starknet.wallet.accountAddress and starknet.wallet.privateKey.",
@@ -214,9 +199,7 @@ export class StarknetClient {
   /**
    * Create and deploy a new Starknet account on devnet.
    */
-  async createAccount(
-    fundingAmountWei: string = "1000000000000000000",
-  ): Promise<{
+  async createAccount(fundingAmountWei: string = "1000000000000000000"): Promise<{
     address: string;
     privateKey: string;
     publicKey: string;
@@ -231,9 +214,7 @@ export class StarknetClient {
 
     const rpcUrl = resolveNetworkUrl(this.config.network);
     if (!rpcUrl.includes("127.0.0.1") && !rpcUrl.includes("localhost")) {
-      console.warn(
-        "⚠️  Creating accounts on non-devnet networks may require real ETH for fees.",
-      );
+      console.warn("⚠️  Creating accounts on non-devnet networks may require real ETH for fees.");
     }
 
     console.log("🔑 Generating new key pair...");

@@ -48,18 +48,10 @@ export interface StarknetPlugin {
   deploy(classHash: string, constructorCalldata?: string[]): Promise<string>;
 
   /** Call a read-only function on a Starknet contract. */
-  call(
-    contractAddress: string,
-    functionName: string,
-    calldata?: string[],
-  ): Promise<string[]>;
+  call(contractAddress: string, functionName: string, calldata?: string[]): Promise<string[]>;
 
   /** Execute a state-changing function on a Starknet contract. */
-  invoke(
-    contractAddress: string,
-    functionName: string,
-    calldata?: string[],
-  ): Promise<string>;
+  invoke(contractAddress: string, functionName: string, calldata?: string[]): Promise<string>;
 
   /** Declare a compiled contract class to Starknet. */
   declare(sierraArtifactPath: string, casmArtifactPath: string): Promise<string>;
@@ -74,9 +66,7 @@ export interface StarknetPlugin {
   compile(): Promise<{ success: boolean; output: string }>;
 
   /** Find compiled contract artifacts (Sierra + CASM) from scarb output. */
-  findArtifacts(
-    contractName: string,
-  ): Promise<{ sierra: string; casm: string } | null>;
+  findArtifacts(contractName: string): Promise<{ sierra: string; casm: string } | null>;
 
   /** Declare and deploy a contract in one step. */
   declareAndDeploy(

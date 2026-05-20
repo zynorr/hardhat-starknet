@@ -68,19 +68,11 @@ export function createStarknetPlugin(config: StarknetConfig): StarknetPlugin {
     },
 
     // --- Contract interaction (Starknet layer) ---
-    async call(
-      contractAddress: string,
-      functionName: string,
-      calldata?: string[],
-    ) {
+    async call(contractAddress: string, functionName: string, calldata?: string[]) {
       return client.call(contractAddress, functionName, calldata || []);
     },
 
-    async invoke(
-      contractAddress: string,
-      functionName: string,
-      calldata?: string[],
-    ) {
+    async invoke(contractAddress: string, functionName: string, calldata?: string[]) {
       return client.invoke(contractAddress, functionName, calldata || []);
     },
 

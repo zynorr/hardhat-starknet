@@ -12,16 +12,13 @@ import { NETWORK_ALIASES } from "./resolve";
  * const errors = validateStarknetConfig({ network: "invalid" });
  * // errors = [{ path: "starknet.network", message: "Unknown network "invalid"..." }]
  */
-export function validateStarknetConfig(
-  config?: Partial<StarknetConfig>,
-): ConfigValidationError[] {
+export function validateStarknetConfig(config?: Partial<StarknetConfig>): ConfigValidationError[] {
   const errors: ConfigValidationError[] = [];
 
   if (!config) {
     errors.push({
       path: "starknet",
-      message:
-        "Missing starknet config. Add a `starknet` section to hardhat.config.ts.",
+      message: "Missing starknet config. Add a `starknet` section to hardhat.config.ts.",
     });
     return errors;
   }
@@ -29,11 +26,7 @@ export function validateStarknetConfig(
   // Validate network
   if (config.network !== undefined) {
     const net = config.network;
-    if (
-      !NETWORK_ALIASES[net] &&
-      !net.startsWith("http://") &&
-      !net.startsWith("https://")
-    ) {
+    if (!NETWORK_ALIASES[net] && !net.startsWith("http://") && !net.startsWith("https://")) {
       errors.push({
         path: "starknet.network",
         message: `Unknown network "${net}". Use one of: ${Object.keys(NETWORK_ALIASES).join(", ")}, or a full RPC URL (e.g., "http://127.0.0.1:5050").`,
@@ -67,24 +60,17 @@ export function validateStarknetConfig(
     if (typeof wallet !== "object" || wallet === null || Array.isArray(wallet)) {
       errors.push({
         path: "starknet.wallet",
-        message:
-          "Expected wallet to be an object with accountAddress and/or privateKey.",
+        message: "Expected wallet to be an object with accountAddress and/or privateKey.",
       });
     } else {
-      if (
-        wallet.accountAddress !== undefined &&
-        typeof wallet.accountAddress !== "string"
-      ) {
+      if (wallet.accountAddress !== undefined && typeof wallet.accountAddress !== "string") {
         errors.push({
           path: "starknet.wallet.accountAddress",
           message: `Expected a string (hex address), got "${typeof wallet.accountAddress}".`,
         });
       }
 
-      if (
-        wallet.privateKey !== undefined &&
-        typeof wallet.privateKey !== "string"
-      ) {
+      if (wallet.privateKey !== undefined && typeof wallet.privateKey !== "string") {
         errors.push({
           path: "starknet.wallet.privateKey",
           message: `Expected a string (hex private key), got "${typeof wallet.privateKey}".`,
@@ -94,10 +80,7 @@ export function validateStarknetConfig(
   }
 
   // Validate packageName
-  if (
-    config.packageName !== undefined &&
-    typeof config.packageName !== "string"
-  ) {
+  if (config.packageName !== undefined && typeof config.packageName !== "string") {
     errors.push({
       path: "starknet.packageName",
       message: `Expected a string (package name from Scarb.toml), got "${typeof config.packageName}".`,

@@ -34,9 +34,7 @@ export interface ScarbManifest {
  * console.log(manifest.name);        // "sample_token"
  * console.log(manifest.dependencies); // { starknet: ">=2.18.0", openzeppelin: "1.0.0" }
  */
-export async function parseScarbManifest(
-  projectRoot?: string,
-): Promise<ScarbManifest | null> {
+export async function parseScarbManifest(projectRoot?: string): Promise<ScarbManifest | null> {
   const cwd = projectRoot || process.cwd();
   const scarbPath = join(cwd, "Scarb.toml");
 
@@ -47,9 +45,7 @@ export async function parseScarbManifest(
     if (error.code === "ENOENT") {
       return null;
     }
-    throw new Error(
-      `Failed to read Scarb.toml at ${scarbPath}: ${error.message}`,
-    );
+    throw new Error(`Failed to read Scarb.toml at ${scarbPath}: ${error.message}`);
   }
 }
 
@@ -127,9 +123,8 @@ export function parseScarbToml(raw: string, sourcePath?: string): ScarbManifest 
 }
 
 function parseKeyValue(line: string): { key: string; value: string } | null {
-  const stripped = line.replace(
-    /(?:".*?"|'.*?')|(#.*)/g,
-    (match, comment) => (comment ? "" : match),
+  const stripped = line.replace(/(?:".*?"|'.*?')|(#.*)/g, (match, comment) =>
+    comment ? "" : match,
   );
 
   const eqIndex = stripped.indexOf("=");

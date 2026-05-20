@@ -3,10 +3,7 @@ import { task, types } from "hardhat/config";
 /**
  * `starknet:account` — Show current account info.
  */
-task(
-  "starknet:account",
-  "Show current Starknet account information",
-).setAction(async (_, hre) => {
+task("starknet:account", "Show current Starknet account information").setAction(async (_, hre) => {
   const url = hre.starknet.getProviderUrl();
   console.log(`🌐 Starknet RPC URL: ${url}`);
 
@@ -21,10 +18,7 @@ task(
 /**
  * `starknet:create-account` — Create and deploy a new Starknet account.
  */
-task(
-  "starknet:create-account",
-  "Create and deploy a new Starknet account (devnet)",
-)
+task("starknet:create-account", "Create and deploy a new Starknet account (devnet)")
   .addOptionalParam(
     "fund",
     "Amount of wei to fund the new account with (default: 1 ETH = 10^18 wei)",
@@ -55,10 +49,7 @@ task(
 /**
  * `starknet:info` — Show project info from Scarb.toml.
  */
-task(
-  "starknet:info",
-  "Show Cairo project info from Scarb.toml",
-).setAction(async (_, hre) => {
+task("starknet:info", "Show Cairo project info from Scarb.toml").setAction(async (_, hre) => {
   const manifest = await hre.starknet.parseManifest();
   if (!manifest) {
     console.log("⚠️  No Scarb.toml found in the current directory.");
@@ -84,29 +75,22 @@ task(
 /**
  * `starknet:list-contracts` — List compiled contracts from artifacts.
  */
-task(
-  "starknet:list-contracts",
-  "List all compiled contract artifacts",
-).setAction(async (_, hre) => {
-  const contracts = await hre.starknet.listContracts();
-  if (contracts.length === 0) {
-    console.log(
-      "⚠️  No compiled contracts found. Run `compile:starknet` first.",
-    );
-    return;
-  }
-
-  console.log("📁 Compiled Contracts:");
-  for (const name of contracts) {
-    const artifacts = await hre.starknet.findArtifacts(name);
-    if (artifacts) {
-      console.log(`  📄 ${name}`);
-      console.log(
-        `     Sierra: ${artifacts.sierra.split("/").pop()}`,
-      );
-      console.log(
-        `     CASM:   ${artifacts.casm.split("/").pop()}`,
-      );
+task("starknet:list-contracts", "List all compiled contract artifacts").setAction(
+  async (_, hre) => {
+    const contracts = await hre.starknet.listContracts();
+    if (contracts.length === 0) {
+      console.log("⚠️  No compiled contracts found. Run `compile:starknet` first.");
+      return;
     }
-  }
-});
+
+    console.log("📁 Compiled Contracts:");
+    for (const name of contracts) {
+      const artifacts = await hre.starknet.findArtifacts(name);
+      if (artifacts) {
+        console.log(`  📄 ${name}`);
+        console.log(`     Sierra: ${artifacts.sierra.split("/").pop()}`);
+        console.log(`     CASM:   ${artifacts.casm.split("/").pop()}`);
+      }
+    }
+  },
+);

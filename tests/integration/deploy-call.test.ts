@@ -45,6 +45,9 @@ describe("Integration: deploy-call (full path)", function () {
       return;
     }
 
+    // Install example project dependencies (fresh clone needs this)
+    execSync("npm install", { cwd: EXAMPLE_DIR, stdio: "pipe" });
+
     // Build plugin
     execSync("npm run build", { cwd: PLUGIN_DIR, stdio: "pipe" });
   });
@@ -66,9 +69,7 @@ describe("Integration: deploy-call (full path)", function () {
     const sierraFile = files.find(
       (f) => f.endsWith(".contract_class.json") && !f.includes("compiled"),
     );
-    const casmFile = files.find((f) =>
-      f.endsWith(".compiled_contract_class.json"),
-    );
+    const casmFile = files.find((f) => f.endsWith(".compiled_contract_class.json"));
 
     expect(sierraFile, "Sierra artifact should exist").to.exist;
     expect(casmFile, "CASM artifact should exist").to.exist;
@@ -87,9 +88,7 @@ describe("Integration: deploy-call (full path)", function () {
     const sierraFile = files.find(
       (f) => f.endsWith(".contract_class.json") && !f.includes("compiled"),
     )!;
-    const casmFile = files.find((f) =>
-      f.endsWith(".compiled_contract_class.json"),
-    )!;
+    const casmFile = files.find((f) => f.endsWith(".compiled_contract_class.json"))!;
     const sierraPath = join(artifactDir, sierraFile);
     const casmPath = join(artifactDir, casmFile);
 
@@ -148,9 +147,7 @@ describe("Integration: deploy-call (full path)", function () {
       { cwd: EXAMPLE_DIR, env, stdio: "pipe" },
     );
     const callOutput = callOut.toString();
-    expect(callOutput, "Should contain greeting 'Hello Test'").to.include(
-      "0x48656c6c6f2054657374",
-    );
+    expect(callOutput, "Should contain greeting 'Hello Test'").to.include("0x48656c6c6f2054657374");
 
     // Invoke set_greeting
     const newGreeting = "0x48656c6c6f2048617264686174"; // "Hello Hardhat"
@@ -170,9 +167,7 @@ describe("Integration: deploy-call (full path)", function () {
       { cwd: EXAMPLE_DIR, env, stdio: "pipe" },
     );
     const callOutput2 = callOut2.toString();
-    expect(callOutput2, "Should contain updated greeting").to.include(
-      newGreeting,
-    );
+    expect(callOutput2, "Should contain updated greeting").to.include(newGreeting);
   });
 
   it("4. reads balance", async function () {
@@ -188,8 +183,6 @@ describe("Integration: deploy-call (full path)", function () {
       { cwd: EXAMPLE_DIR, env, stdio: "pipe" },
     );
     const callOutput = callOut.toString();
-    expect(callOutput, "Should contain initial balance of 0").to.include(
-      "0x0",
-    );
+    expect(callOutput, "Should contain initial balance of 0").to.include("0x0");
   });
 });

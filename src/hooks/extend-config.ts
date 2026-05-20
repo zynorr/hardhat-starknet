@@ -16,11 +16,8 @@ export function registerConfigExtension(): void {
     if (errors.length > 0) {
       console.warn(
         `\n⚠️  [hardhat-starknet] Config validation issues:\n` +
-          errors
-            .map(
-              (e: ConfigValidationError) => `     - ${e.path}: ${e.message}`,
-            )
-            .join("\n") + "\n",
+          errors.map((e: ConfigValidationError) => `     - ${e.path}: ${e.message}`).join("\n") +
+          "\n",
       );
     }
 
